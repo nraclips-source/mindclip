@@ -1,0 +1,145 @@
+:root {
+  --ink: #0f0f11;
+  --panel: #1a1a1e;
+  --rule: #2e2e34;
+  --chalk: #f2eee4;
+  --ash: #a29e93;
+  --amber: #f5b800;
+  --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --measure: 62ch;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--ink); color: var(--chalk); -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--body);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  font-optical-sizing: auto;
+}
+
+a { color: var(--amber); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible, .button:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; border-radius: 2px; }
+
+.wrap { width: min(100% - 3rem, 72rem); margin-inline: auto; }
+
+/* ---------- top bar ---------- */
+.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem; padding-block: 1.5rem; }
+.top img { display: block; height: 2.25rem; width: auto; }
+.top nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; font-family: var(--display); font-size: 0.95rem; font-weight: 500; }
+.top nav a { color: var(--chalk); text-decoration: none; }
+.top nav a:hover { color: var(--amber); }
+
+/* ---------- hero ---------- */
+.hero { padding-block: clamp(2.5rem, 7vw, 6rem) 0; }
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 8.4vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  margin: 0;
+  max-width: 13ch;
+  text-wrap: balance;
+}
+.hero .lede { font-size: clamp(1.15rem, 1.6vw, 1.4rem); max-width: 46ch; margin: 2rem 0 0; color: var(--chalk); }
+.hero .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; margin-top: 2.25rem; }
+
+.button {
+  display: inline-block;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ink);
+  background: var(--amber);
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  text-decoration: none;
+}
+.button:hover { background: #ffd23d; }
+
+/* ---------- the cut: a two-hour lecture with thirty seconds lifted out ---------- */
+.cut { margin: clamp(3.5rem, 8vw, 6.5rem) 0 0; padding-bottom: 1rem; }
+.cut .stage { position: relative; height: 13.5rem; }
+.cut .reel {
+  position: absolute; left: 0; right: 0; bottom: 2.4rem; height: 3.25rem;
+  background:
+    repeating-linear-gradient(90deg, var(--rule) 0 1px, transparent 1px calc(100% / 120)),
+    linear-gradient(var(--panel), var(--panel));
+  border-block: 1px solid var(--rule);
+}
+.cut .gap { position: absolute; bottom: 2.4rem; left: 61.5%; width: 0.42%; min-width: 4px; height: 3.25rem; background: var(--ink); }
+.cut .sliver {
+  position: absolute; bottom: 2.4rem; left: 61.5%; width: 0.42%; min-width: 4px; height: 3.25rem;
+  background: var(--amber);
+  animation: lift 900ms cubic-bezier(.2,.8,.2,1) 500ms both;
+}
+.cut .lead { position: absolute; left: calc(61.5% + 2px); bottom: 6.6rem; width: 1px; height: 1.6rem; background: var(--amber); animation: fade 500ms ease 1200ms both; }
+.cut .clip {
+  position: absolute; left: 61.5%; bottom: 8.4rem; transform: translateX(-50%);
+  font-family: var(--display); font-weight: 700; font-size: 1rem; line-height: 1.2; white-space: nowrap;
+  color: var(--ink); background: var(--amber); padding: 0.4rem 0.75rem; border-radius: 999px;
+  animation: fade 500ms ease 1300ms both;
+}
+.cut .scale { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between;
+  font-family: var(--display); font-size: 0.85rem; color: var(--ash); }
+.cut figcaption { max-width: var(--measure); margin-top: 1.25rem; color: var(--ash); font-size: 1rem; }
+
+@keyframes lift { from { transform: translateY(0); } to { transform: translateY(-3.6rem); } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .cut .sliver { animation: none; transform: translateY(-3.6rem); }
+  .cut .lead, .cut .clip { animation: none; }
+}
+
+/* ---------- sections ---------- */
+main > section { border-top: 1px solid var(--rule); padding-block: clamp(3rem, 6vw, 5rem); }
+main > section:first-of-type { margin-top: clamp(3rem, 6vw, 5rem); }
+.split { display: grid; gap: 1.25rem 4rem; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 60rem) { .split { grid-template-columns: 17rem minmax(0, 1fr); } }
+
+h2 { font-family: var(--display); font-weight: 700; font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+.prose { max-width: var(--measure); }
+.prose > :first-child { margin-top: 0; }
+.prose > :last-child { margin-bottom: 0; }
+.prose p { margin: 0 0 1.1em; }
+h3 { font-family: var(--display); font-weight: 700; font-size: 1.15rem; line-height: 1.3; margin: 0 0 0.3rem; }
+
+/* promises: a plain list, no numbering because order does not matter */
+.promises { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.75rem 3rem; max-width: 56rem; }
+@media (min-width: 44rem) { .promises { grid-template-columns: 1fr 1fr; } }
+.promises li { border-left: 3px solid var(--amber); padding-left: 1.1rem; }
+.promises p { margin: 0; color: var(--chalk); }
+
+/* steps: numbered because this really is a sequence */
+.steps { list-style: none; counter-reset: step; margin: 0; padding: 0; max-width: var(--measure); }
+.steps li { counter-increment: step; position: relative; padding: 0 0 1.6rem 3.5rem; }
+.steps li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: -0.1rem;
+  font-family: var(--display); font-weight: 800; font-size: 1.9rem; line-height: 1; color: var(--amber);
+}
+.steps li:last-child { padding-bottom: 0; }
+.steps p { margin: 0; }
+
+.note { color: var(--ash); font-size: 1rem; }
+
+/* ---------- footer ---------- */
+footer { border-top: 1px solid var(--rule); margin-top: clamp(3rem, 6vw, 5rem); padding-block: 2.5rem 3.5rem; color: var(--ash); font-size: 1rem; }
+footer .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; justify-content: space-between; }
+footer img { width: 3rem; height: 3rem; border-radius: 0.7rem; display: block; }
+footer .who { display: flex; align-items: center; gap: 1rem; }
+footer nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; font-family: var(--display); }
+footer nav a { color: var(--chalk); }
+
+/* ---------- policy page ---------- */
+.doc { padding-block: clamp(2rem, 5vw, 4rem) 0; }
+.doc h1 { font-family: var(--display); font-weight: 800; font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1; letter-spacing: -0.03em; margin: 0 0 0.75rem; }
+.doc .prose h2 { font-size: 1.45rem; margin: 2.4rem 0 0.6rem; }
+.doc .prose ul { padding-left: 1.2rem; margin: 0 0 1.1em; }
+.doc .prose li { margin-bottom: 0.4em; }
