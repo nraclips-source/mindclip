@@ -33,23 +33,25 @@
       <a href="#clips">What goes into a clip</a>
     </div>
 
-    <figure class="cut" aria-label="A two-hour recording drawn as a strip, with ten thirty-second clips lifted out of it at different points.">
+    <figure class="cut" aria-label="A two-hour recording drawn as a strip, with ten thirty-second clips lifted out of it at different points. The strip then moves on to the next recording and repeats.">
       <div class="stage" aria-hidden="true">
-        <div class="reel"></div>
-        <span class="sliver" style="--x:6%;--d:500ms"></span>
-        <span class="sliver" style="--x:14.5%;--d:590ms"></span>
-        <span class="sliver" style="--x:23%;--d:680ms"></span>
-        <span class="sliver" style="--x:31%;--d:770ms"></span>
-        <span class="sliver" style="--x:42.5%;--d:860ms"></span>
-        <span class="sliver" style="--x:51%;--d:950ms"></span>
-        <span class="sliver" style="--x:61.5%;--d:1040ms"></span>
-        <span class="sliver" style="--x:70%;--d:1130ms"></span>
-        <span class="sliver" style="--x:81%;--d:1220ms"></span>
-        <span class="sliver" style="--x:92%;--d:1310ms"></span>
+        <div class="track">
+          <div class="reel"></div>
+          <span class="sliver" style="--x:6%;--d:0ms"></span>
+          <span class="sliver" style="--x:14.5%;--d:90ms"></span>
+          <span class="sliver" style="--x:23%;--d:180ms"></span>
+          <span class="sliver" style="--x:31%;--d:270ms"></span>
+          <span class="sliver" style="--x:42.5%;--d:360ms"></span>
+          <span class="sliver" style="--x:51%;--d:450ms"></span>
+          <span class="sliver" style="--x:61.5%;--d:540ms"></span>
+          <span class="sliver" style="--x:70%;--d:630ms"></span>
+          <span class="sliver" style="--x:81%;--d:720ms"></span>
+          <span class="sliver" style="--x:92%;--d:810ms"></span>
+        </div>
         <div class="clip">ten clips, about 30 seconds each</div>
         <div class="scale"><span>0:00</span><span>0:30</span><span>1:00</span><span>1:30</span><span>2:00</span></div>
       </div>
-      <figcaption class="slide from-right">Drawn to scale. One long recording gives several clips, here ten. Together they run about five minutes, so the other 115 stay where they are. The clips are there to tell you whether the rest is for you.</figcaption>
+      <figcaption class="slide from-right">Drawn to scale. One long recording gives several clips, here ten. Together they run about five minutes, so the other 115 stay where they are. The clips are there to tell you whether the rest is for you. Then the next recording comes in.</figcaption>
     </figure>
   </div>
 
@@ -144,6 +146,34 @@
     entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
   }, { threshold: 0.15 });
   items.forEach(function (el) { io.observe(el); });
+})();
+
+/* The strip: lift ten clips, collect them, bring in the next recording, repeat. */
+(function () {
+  var stage = document.querySelector(".cut .stage");
+  if (!stage || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var slivers = stage.querySelectorAll(".sliver");
+  var sets = [
+    [6, 14.5, 23, 31, 42.5, 51, 61.5, 70, 81, 92],
+    [3.5, 11, 19.5, 34, 39.5, 55, 64, 73.5, 78.5, 88],
+    [8, 17, 26.5, 36, 45, 48.5, 59, 67.5, 84, 95]
+  ];
+  var n = 0;
+  function phase(name, ms, next) { stage.dataset.phase = name; setTimeout(next, ms); }
+  function run() {
+    var set = sets[n % sets.length]; n += 1;
+    slivers.forEach(function (el, i) { el.style.setProperty("--x", set[i] + "%"); });
+    phase("pre", 60, function () {
+      phase("enter", 950, function () {
+        phase("lift", 4200, function () {
+          phase("collect", 1500, function () {
+            phase("exit", 850, run);
+          });
+        });
+      });
+    });
+  }
+  run();
 })();
 </script>
 </body>

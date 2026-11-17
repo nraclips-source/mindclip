@@ -65,7 +65,8 @@ a:focus-visible, .button:focus-visible { outline: 2px solid var(--amber); outlin
 
 /* ---------- the cut: a two-hour lecture with thirty seconds lifted out ---------- */
 .cut { margin: clamp(3.5rem, 8vw, 6.5rem) 0 0; padding-bottom: 1rem; }
-.cut .stage { position: relative; height: 13.5rem; }
+.cut .stage { position: relative; height: 13.5rem; overflow: hidden; }
+.cut .track { position: absolute; inset: 0; transition: transform 900ms cubic-bezier(.2,.8,.2,1); }
 .cut .reel {
   position: absolute; left: 0; right: 0; bottom: 2.4rem; height: 3.25rem;
   background:
@@ -76,19 +77,26 @@ a:focus-visible, .button:focus-visible { outline: 2px solid var(--amber); outlin
 .cut .sliver { position: absolute; bottom: 2.4rem; left: var(--x); width: 0.42%; min-width: 4px; height: 3.25rem; background: var(--ink); }
 .cut .sliver::after {
   content: ""; position: absolute; inset: 0; background: var(--amber);
-  animation: lift 900ms cubic-bezier(.2,.8,.2,1) var(--d) both;
+  transform: translateY(-3.6rem);
+  transition: transform 900ms cubic-bezier(.2,.8,.2,1) var(--d), opacity 500ms ease var(--d);
 }
+/* the loop, driven by data-phase on the stage: pre, enter, lift, collect, exit */
+.cut .stage[data-phase="pre"] .track { transform: translateX(102%); transition: none; }
+.cut .stage[data-phase="exit"] .track { transform: translateX(-102%); transition-timing-function: cubic-bezier(.6,0,.8,.2); transition-duration: 800ms; }
+.cut .stage[data-phase="pre"] .sliver::after { transform: none; opacity: 1; transition: none; }
+.cut .stage[data-phase="enter"] .sliver::after { transform: none; opacity: 1; transition: none; }
+.cut .stage[data-phase="collect"] .sliver::after,
+.cut .stage[data-phase="exit"] .sliver::after { transform: translateY(-6rem); opacity: 0; }
 .cut .clip {
   position: absolute; left: 50%; bottom: 10.4rem; transform: translateX(-50%);
   font-family: var(--display); font-weight: 700; font-size: 1rem; line-height: 1.2; white-space: nowrap;
   color: var(--ink); background: var(--amber); padding: 0.4rem 0.75rem; border-radius: 999px;
-  animation: fade 500ms ease 1900ms both;
+  animation: fade 500ms ease 600ms both;
 }
 .cut .scale { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between;
   font-family: var(--display); font-size: 0.85rem; color: var(--ash); }
 .cut figcaption { max-width: var(--measure); margin-top: 1.25rem; color: var(--ash); font-size: 1rem; }
 
-@keyframes lift { from { transform: translateY(0); } to { transform: translateY(-3.6rem); } }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 
 /* ---------- text slides in from the side it sits on ---------- */
@@ -102,7 +110,7 @@ main { overflow-x: clip; }
 .from-right { --from: 4rem; }
 
 @media (prefers-reduced-motion: reduce) {
-  .cut .sliver::after { animation: none; transform: translateY(-3.6rem); }
+  .cut .sliver::after { transition: none; }
   .cut .clip { animation: none; }
   .js .slide { opacity: 1; transform: none; transition: none; }
 }
