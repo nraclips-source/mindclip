@@ -73,18 +73,16 @@ a:focus-visible, .button:focus-visible { outline: 2px solid var(--amber); outlin
     linear-gradient(var(--panel), var(--panel));
   border-block: 1px solid var(--rule);
 }
-.cut .gap { position: absolute; bottom: 2.4rem; left: 61.5%; width: 0.42%; min-width: 4px; height: 3.25rem; background: var(--ink); }
-.cut .sliver {
-  position: absolute; bottom: 2.4rem; left: 61.5%; width: 0.42%; min-width: 4px; height: 3.25rem;
-  background: var(--amber);
-  animation: lift 900ms cubic-bezier(.2,.8,.2,1) 500ms both;
+.cut .sliver { position: absolute; bottom: 2.4rem; left: var(--x); width: 0.42%; min-width: 4px; height: 3.25rem; background: var(--ink); }
+.cut .sliver::after {
+  content: ""; position: absolute; inset: 0; background: var(--amber);
+  animation: lift 900ms cubic-bezier(.2,.8,.2,1) var(--d) both;
 }
-.cut .lead { position: absolute; left: calc(61.5% + 2px); bottom: 6.6rem; width: 1px; height: 1.6rem; background: var(--amber); animation: fade 500ms ease 1200ms both; }
 .cut .clip {
-  position: absolute; left: 61.5%; bottom: 8.4rem; transform: translateX(-50%);
+  position: absolute; left: 50%; bottom: 10.4rem; transform: translateX(-50%);
   font-family: var(--display); font-weight: 700; font-size: 1rem; line-height: 1.2; white-space: nowrap;
   color: var(--ink); background: var(--amber); padding: 0.4rem 0.75rem; border-radius: 999px;
-  animation: fade 500ms ease 1300ms both;
+  animation: fade 500ms ease 1900ms both;
 }
 .cut .scale { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between;
   font-family: var(--display); font-size: 0.85rem; color: var(--ash); }
@@ -92,9 +90,21 @@ a:focus-visible, .button:focus-visible { outline: 2px solid var(--amber); outlin
 
 @keyframes lift { from { transform: translateY(0); } to { transform: translateY(-3.6rem); } }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- text slides in from the side it sits on ---------- */
+main { overflow-x: clip; }
+.js .slide {
+  opacity: 0; transform: translateX(var(--from, 0));
+  transition: opacity 700ms ease var(--delay, 0ms), transform 800ms cubic-bezier(.2,.8,.2,1) var(--delay, 0ms);
+}
+.js .slide.in { opacity: 1; transform: none; }
+.from-left { --from: -4rem; }
+.from-right { --from: 4rem; }
+
 @media (prefers-reduced-motion: reduce) {
-  .cut .sliver { animation: none; transform: translateY(-3.6rem); }
-  .cut .lead, .cut .clip { animation: none; }
+  .cut .sliver::after { animation: none; transform: translateY(-3.6rem); }
+  .cut .clip { animation: none; }
+  .js .slide { opacity: 1; transform: none; transition: none; }
 }
 
 /* ---------- sections ---------- */

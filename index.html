@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
 
@@ -25,30 +26,37 @@
 
 <main>
   <div class="wrap hero">
-    <h1>Two hours of discussion. Thirty seconds worth keeping.</h1>
-    <p class="lede">Mindclip is a YouTube channel of short clips from long lectures and talks. Each clip holds one complete idea, and points you to the lecture it came from.</p>
-    <div class="actions">
+    <h1 class="slide from-left">Two hours of discussion. Thirty seconds worth keeping.</h1>
+    <p class="lede slide from-right" style="--delay:150ms">Mindclip is a YouTube channel of short clips from long lectures and talks. Each clip holds one complete idea, and points you to the lecture it came from.</p>
+    <div class="actions slide from-left" style="--delay:300ms">
       <a class="button" href="https://www.youtube.com/@mind-clip-v1">Watch on YouTube</a>
       <a href="#clips">What goes into a clip</a>
     </div>
 
-    <figure class="cut" aria-label="A two-hour lecture drawn as a strip, with one thirty-second clip lifted out of it.">
+    <figure class="cut" aria-label="A two-hour recording drawn as a strip, with ten thirty-second clips lifted out of it at different points.">
       <div class="stage" aria-hidden="true">
         <div class="reel"></div>
-        <div class="gap"></div>
-        <div class="sliver"></div>
-        <div class="lead"></div>
-        <div class="clip">one clip, 30 seconds</div>
+        <span class="sliver" style="--x:6%;--d:500ms"></span>
+        <span class="sliver" style="--x:14.5%;--d:590ms"></span>
+        <span class="sliver" style="--x:23%;--d:680ms"></span>
+        <span class="sliver" style="--x:31%;--d:770ms"></span>
+        <span class="sliver" style="--x:42.5%;--d:860ms"></span>
+        <span class="sliver" style="--x:51%;--d:950ms"></span>
+        <span class="sliver" style="--x:61.5%;--d:1040ms"></span>
+        <span class="sliver" style="--x:70%;--d:1130ms"></span>
+        <span class="sliver" style="--x:81%;--d:1220ms"></span>
+        <span class="sliver" style="--x:92%;--d:1310ms"></span>
+        <div class="clip">ten clips, about 30 seconds each</div>
         <div class="scale"><span>0:00</span><span>0:30</span><span>1:00</span><span>1:30</span><span>2:00</span></div>
       </div>
-      <figcaption>Drawn to scale. A two-hour lecture is 240 times longer than one clip, so most of it stays where it is. The clip is there to tell you whether the other 119 minutes are for you.</figcaption>
+      <figcaption class="slide from-right">Drawn to scale. One long recording gives several clips, here ten. Together they run about five minutes, so the other 115 stay where they are. The clips are there to tell you whether the rest is for you.</figcaption>
     </figure>
   </div>
 
   <section id="why">
     <div class="wrap split">
-      <h2>Why the channel exists</h2>
-      <div class="prose">
+      <h2 class="slide from-left">Why the channel exists</h2>
+      <div class="prose slide from-right">
         <p>A good lecture is long because an argument needs room. But inside it there are moments where one idea arrives whole: a definition, a distinction, a story that makes the point. Those moments stand on their own, and most people never reach them, because nobody has two hours to spare on a guess.</p>
         <p>Mindclip finds those moments and posts them by themselves. If one of them stays with you, the full lecture is named in the description, and that is where the idea is argued properly.</p>
       </div>
@@ -57,21 +65,21 @@
 
   <section id="clips">
     <div class="wrap split">
-      <h2>What a clip is</h2>
+      <h2 class="slide from-left">What a clip is</h2>
       <ul class="promises">
-        <li>
+        <li class="slide from-left" style="--delay:0ms">
           <h3>One idea, start to finish</h3>
           <p>A clip begins where the thought begins and ends where it lands. No cliffhangers, and no cutting away before the point is made.</p>
         </li>
-        <li>
+        <li class="slide from-right" style="--delay:80ms">
           <h3>The speaker's words, in the speaker's order</h3>
           <p>Pauses, repeats and asides are trimmed to fit the length. Nothing is rearranged or joined up to say something the speaker did not say.</p>
         </li>
-        <li>
+        <li class="slide from-left" style="--delay:160ms">
           <h3>Captioned, every time</h3>
           <p>Every clip carries word-by-word captions, so it works with the sound off and for viewers who cannot hear it.</p>
         </li>
-        <li>
+        <li class="slide from-right" style="--delay:240ms">
           <h3>The source is named</h3>
           <p>Each description says whose lecture the clip came from, so you can go and watch the whole thing.</p>
         </li>
@@ -81,23 +89,23 @@
 
   <section id="made">
     <div class="wrap split">
-      <h2>How clips are made</h2>
+      <h2 class="slide from-left">How clips are made</h2>
       <div>
-        <ol class="steps">
+        <ol class="steps slide from-right">
           <li><p>Software transcribes a publicly available lecture, word by word.</p></li>
           <li><p>An AI model reads the transcript and marks the passages where a complete idea is made, from its first sentence to its last.</p></li>
           <li><p>Each passage is cut out, framed upright on the speaker and captioned.</p></li>
           <li><p>The clip is uploaded to the Mindclip channel with a title that says what it is about and a line naming the full lecture.</p></li>
         </ol>
-        <p class="note prose" style="margin-top:2rem">The choosing and cutting are done by software, including AI, and not by an editor watching every minute. That is how one person can run the channel. It also means a clip can occasionally miss; if you see one that misrepresents a speaker, <a href="mailto:nraclips@gmail.com">say so</a> and it will be taken down.</p>
+        <p class="note prose slide from-right" style="margin-top:2rem">The choosing and cutting are done by software, including AI, and not by an editor watching every minute. That is how one person can run the channel. It also means a clip can occasionally miss; if you see one that misrepresents a speaker, <a href="mailto:nraclips@gmail.com">say so</a> and it will be taken down.</p>
       </div>
     </div>
   </section>
 
   <section id="speakers">
     <div class="wrap split">
-      <h2>For speakers and rights holders</h2>
-      <div class="prose">
+      <h2 class="slide from-left">For speakers and rights holders</h2>
+      <div class="prose slide from-right">
         <p>Mindclip is an independent channel. It is not affiliated with, sponsored by or endorsed by any of the people who appear in its clips.</p>
         <p>If you are the speaker in a clip, or you hold the rights to a lecture, and you want a clip removed or credited differently, write to <a href="mailto:nraclips@gmail.com">nraclips@gmail.com</a> with a link to the clip. It will be removed or corrected.</p>
       </div>
@@ -106,8 +114,8 @@
 
   <section id="app">
     <div class="wrap split">
-      <h2>The uploading tool</h2>
-      <div class="prose">
+      <h2 class="slide from-left">The uploading tool</h2>
+      <div class="prose slide from-right">
         <p>Clips reach YouTube through a small program called short-clipper, which runs on the channel owner's own computer. It signs in to the channel owner's YouTube account to upload clips and to read the channel's own view counts. Nobody else signs in to it, and it is not offered to the public.</p>
         <p>What it can see, what it keeps and how to switch it off are set out in the <a href="privacy.html">privacy policy</a>.</p>
       </div>
@@ -128,5 +136,15 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  var items = document.querySelectorAll(".slide");
+  if (!("IntersectionObserver" in window)) { items.forEach(function (el) { el.classList.add("in"); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  items.forEach(function (el) { io.observe(el); });
+})();
+</script>
 </body>
 </html>
